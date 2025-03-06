@@ -334,7 +334,7 @@ private boolean isValidEmail(String email) {
     }
 
     // If all validations pass, proceed with database insertion
-    String sql = "INSERT INTO tbl_user (u_fname, u_lname, u_email, u_contact, u_username, u_password, u_type, u_status) "
+    String sql = "INSERT INTO table_user (u_fname, u_lname, u_email, u_contact, u_username, u_password, u_type, u_status) "
                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     boolean isInserted = dbc.insertData(sql, 
@@ -354,7 +354,7 @@ private boolean isValidEmail(String email) {
         gui.setVisible(true);
         this.dispose(); // Close the registration window
     } else {
-        JOptionPane.showMessageDialog(null, "Connection Error");
+        JOptionPane.showMessageDialog(null, "Connection Errooooooooooorrrrrrrrrrrrrrrrrrrrrrr");
     }
  }//GEN-LAST:event_SignMouseClicked
 

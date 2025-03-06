@@ -15,7 +15,7 @@ public class dbconnector {
     public dbconnector(){
     try {
         // Ensure the URL, username, and password are correct
-        connect = DriverManager.getConnection("jdbc:mysql://localhost:3307/tuah", "root", "");
+        connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/tuah", "root", "");
         System.out.println("Connected to the database.");
     } catch (SQLException ex) {
         System.out.println("Failed to connect to the database:");
@@ -47,7 +47,7 @@ public boolean insertData(String sql, String... params) {
         pst.close();
         return true;
     } catch (SQLException ex) {
-        System.out.println("Connection Error: " + ex);
+        System.out.println("Connection Error8: " + ex);
         return false;
     }
 }

@@ -2,6 +2,7 @@
 package loginreg;
 
 import Admin.Admindashb;
+import Userdashboard.userb;
 import config.dbconnector;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,21 +24,30 @@ public class GUI extends javax.swing.JFrame {
  
  
  static String status;
-
+ static String type;
  
- public static boolean loginAcc(String username, String password){ 
-dbconnector connector = new dbconnector(); 
-try{ 
- String query = "SELECT * FROM tbl_user WHERE u_username ="+username+"  AND "
-         + "u_password ="+password+"";
-ResultSet resultSet = connector.getData(query); 
-if(resultSet.next()){
+public static boolean loginAcc(String username, String password) { 
+    dbconnector connector = new dbconnector(); 
+    try { 
+        String query = "SELECT * FROM table_user WHERE u_username = ? AND u_password = ?";
+        PreparedStatement pstmt = connector.getConnection().prepareStatement(query);
+        pstmt.setString(1, username);
+        pstmt.setString(2, password);
+        ResultSet resultSet = pstmt.executeQuery(); 
+        
+        if (resultSet.next()) {
+            status = resultSet.getString("u_status");
+            type = resultSet.getString("u_type");
+            return true;
+        } else {
+            return false;
+        }
+    } catch (SQLException ex) { 
+        System.out.println("Error: " + ex);
+        return false;
+    } 
 
-}
-}catch (SQLException ex) { 
- 
-} 
-return false;
+
  }
 
  /**
@@ -191,9 +201,18 @@ Login.addActionListener(new java.awt.event.ActionListener() {
    JOptionPane.showMessageDialog(null,"in-Active acc contact admin");       
       }else{
           JOptionPane.showMessageDialog(null,"Login Success");
-            Admindashb ads = new Admindashb ();
-            ads.setVisible(true);
-            this.dispose();
+          if(type.equals("admin")){
+          Admindashb ads = new Admindashb ();
+          ads.setVisible(true);
+          this.dispose();
+           }else if(type.equals("user")){
+            userb uds = new userb ();
+          uds.setVisible(true);
+          }else{
+          JOptionPane.showMessageDialog(null,"No Account Found Contact Maby");     
+         }
+           
+           
       }
   }else{  
    JOptionPane.showMessageDialog(null,"Please retry");
